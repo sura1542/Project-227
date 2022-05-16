@@ -1,0 +1,38 @@
+<%- include("partials/header.ejs") %>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+  h1{
+    text-align: center;
+  }
+  div{
+    margin: auto;
+  }
+</style>
+<h1>N E W M O V I E</h1>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      <% box.forEach(function(box){ %>  
+      <div class="col">
+        <div class="card shadow-sm">
+        <img src="<%= box.url %>" height="500px" class="index-image">
+          <div class="card-body">
+            <p class="card-text">Name: <%= box.name %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="/box/<%= box._id %>" class="btn btn-sm btn-outline-secondary">View</a>
+              </div>
+              <small class="text-muted"></small>
+            </div>
+          </div>
+        </div>
+      </div>
+     <% }); %>
+    </div>
+  </div>
+</div>
+<div class="w3-bar">
+  <a href="/prints" class="w3-button w3-left w3-light-grey">&laquo; back to DDcinema</a> 
+</div>
+</div>
+<%- include("partials/footer.ejs")%>

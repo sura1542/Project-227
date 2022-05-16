@@ -1,0 +1,45 @@
+<%- include("partials/header.ejs") %>
+
+<!-- <style>
+  *{
+    text-align: center;
+  }
+</style> -->
+
+<div class="container">
+  <!-- <div class="hd" >CINEMA</div> -->
+  <h1>Register</h1>
+  <form action="/register" method="POST">
+    <div class="md-3">
+      <label class="form-label" >Username</label>
+      <input type="text" class="form-control" name="username" placeholder="Your Username">
+    </div>
+    <div class="md-3">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" name="password" placeholder="Your password">
+    </div>
+    <!-- <div class="md-3">
+      <label class="form-label" >First name</label>
+      <input type="text" class="form-control" name="firstname" placeholder="Your firstname">
+    </div>
+    <div class="md-3">
+      <label class="form-label" >Lastname</label>
+      <input type="text" class="form-control" name="lastname" placeholder="Your lastname">
+    </div>
+    <div class="md-3">
+      <label class="form-label" >E-mail</label>
+      <input type="email" class="form-control" name="email" placeholder="Your email address">
+    </div>
+    <div class="md-3">
+      <label class="form-label" >Phofile Image</label>
+      <input type="file" class="form-control" name="profileImage" accept="image/*">
+    </div> -->
+    <div class="md-3">
+      <label class="form-label" >Admin Code</label>
+      <input type="text" class="form-control" name="adminCode" placeholder="Type admin code here">
+    </div>
+    <button type="submit" class="btn btn-primary">Register</button>
+    <a href="/">back</a>
+  </form>
+</div>
+<%- include("partials/footer.ejs")%>

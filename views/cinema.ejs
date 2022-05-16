@@ -1,0 +1,26 @@
+<%- include("partials/header.ejs") %>
+<style>
+
+</style>
+<div class="container">
+<form action="/seat">
+    <p>Please select your favorite Web language:</p>
+    <input type="radio"  name="cinemaname" value="Paragon">
+    <label for="Paragon">Paragon</label><br>
+    <input type="radio"  name="cinemaname" value="Icon">
+    <label for="Icon">Icon</label><br>
+    <input type="radio"  name="cinemaname" value="Mega">
+    <label for="Mega">Mega</label><br><br>
+    <input type="submit" value="Submit">
+</form>
+</div>
+<%- include("partials/footer.ejs")%>
+
+<!-- "IMAX": {
+  "KRUNGSRI IMAX":["Major Cineplax Ratchayothin", "Paragon Cineplax", "Major Cineplax CentralFastival Chiangmai"],
+  "ICON CINECONIC":["iCON Cineconic"]
+},
+"4DX": {
+  "Paragon CINECONIC":["Paragon Cineplex"],
+  "Mega CINEPLEX":["Mega Cineplex"] 
+} -->
