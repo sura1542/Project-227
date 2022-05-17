@@ -20,7 +20,7 @@
             <p class="card-text">Name: <%= box.name %></p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <a href="/box/<%= box._id %>" class="btn btn-sm btn-outline-secondary">View</a>
+                <!-- <a href="/box/<%= box._id %>" class="btn btn-sm btn-outline-secondary">View</a> -->
               </div>
               <small class="text-muted"></small>
             </div>
@@ -32,7 +32,8 @@
   </div>
 </div>
 <div class="w3-bar">
-  <a href="/prints" class="w3-button w3-left w3-light-grey">&laquo; back to DDcinema</a> 
+  <a href="/cinema/all" type='submit' class="w3-button w3-left w3-light-grey"> Choose Cinema &raquo;</a>
+  <a href="/prints" class="w3-button w3-left w3-light-grey">&laquo; back to DDcinema</a>  
 </div>
 </div>
 <%- include("partials/footer.ejs")%>
