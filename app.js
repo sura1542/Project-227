@@ -119,22 +119,22 @@ app.get("/movie", function(req, res) {
 });
 
 
-box.create(
-    {
-        name: "Harry 2",
-        url: "https://static.wixstatic.com/media/e4c482_833a535477074289a261c36909377e70~mv2.jpg/v1/fill/w_600,h_900,al_c,q_85/harry-potter-and-the-chamber-of-secrets-.jpg",
-        description: "description",
-        video: src="https://www.youtube.com/embed/1bq0qff4iF8"
-    },
-    function(err, box) {
-        if (err) {
-            console.log(err);
-        }else {
-            console.log("new data add");
-            console.log(box);
-        }
-    }
-);
+// box.create(
+//     {
+//         name: "Harry 2",
+//         url: "https://static.wixstatic.com/media/e4c482_833a535477074289a261c36909377e70~mv2.jpg/v1/fill/w_600,h_900,al_c,q_85/harry-potter-and-the-chamber-of-secrets-.jpg",
+//         description: "description",
+//         video: src="https://www.youtube.com/embed/1bq0qff4iF8"
+//     },
+//     function(err, box) {
+//         if (err) {
+//             console.log(err);
+//         }else {
+//             console.log("new data add");
+//             console.log(box);
+//         }
+//     }
+// );
 
 app.post("/prints", function(req, res) {
     let name = req.body.box.name;
@@ -167,25 +167,25 @@ app.get("/index", function(req, res) {
 
 // const cinema = mongoose.model('cinema', cinemaSchema);
 
-cinema.create(
-    {
-        cinemaname: "Paragon"
-    },
-    { 
-        cinemaname: "Icon"
-    },
-    {
-        cinemaname: "Mega"
-    },
-    function(err, cinema){ 
-        if(err){
-            console.log(err);
-        }else{
-            console.log("Add new cinema")
-            console.log(cinema);
-        }
-    }
-);
+// cinema.create(
+//     {
+//         cinemaname: "Paragon"
+//     },
+//     { 
+//         cinemaname: "Icon"
+//     },
+//     {
+//         cinemaname: "Mega"
+//     },
+//     function(err, cinema){ 
+//         if(err){
+//             console.log(err);
+//         }else{
+//             console.log("Add new cinema")
+//             console.log(cinema);
+//         }
+//     }
+// );
 
 app.post("/cinema", function(req, res){
     let cinemaname = req.body.cinemaname;
@@ -327,7 +327,7 @@ app.get("/box/:id", function(req, res){
     });
 });
 
-app.get("/box/:id/:cinema_id", function(req, res){
+app.get("/box/:id/cinema/:cinema_id", function(req, res){
     box.findById(req.params.id).populate('comments').exec(function(err,foundbox){
         if (err) {
             console.log(err);
@@ -339,10 +339,10 @@ app.get("/box/:id/:cinema_id", function(req, res){
                    res.render('show.ejs', {box:foundbox, cinema:foundcinema}); 
                 }
             })
-            
         }
     });
 });
+
 
 app.get("/box/:id/new", middleware.isloggedIn ,function(req, res) {
     box.findById(req.params.id, function(err, foundbox) {
@@ -401,6 +401,15 @@ app.get("/movie/all", function(req, res) {
     
 })
 
+app.get("/cinema/all", function(req, res){
+    cinema.find({}, function(err, foundcinema){
+        if(err){
+            console.log(err);
+        }else{
+            res.render('showcinema.ejs', {cinema: foundcinema});
+        }
+    })
+})
 
 // app.get("/prints/add", function(req, res){
 //     res.render("add.ejs");
