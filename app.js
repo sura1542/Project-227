@@ -10,6 +10,7 @@ const   express         = require('express'),
         flash           = require('connect-flash'),
         middleware      = require('./middleware'),
         cinema          = require('./models/cinema'),
+        methodOverride  = require('method-Override'),
         seeddb          = require('./seed.js');
 
 
@@ -21,6 +22,7 @@ mongoose.connect('mongodb://localhost:/DDCinema'),
 app.set("veiw engine", "ejs");
 app.use(express.static("./public"));
 app.use(bodyParser.urlencoded({extend: true}));
+app.use(methodOverride('_method'));
 app.use(flash());
 // seeddb();
 
@@ -373,6 +375,40 @@ app.post("/box/:id/comments", function(req, res) {
             });
         }
     
+    });
+});
+
+app.get("/box/:id/edit", function(req, res) {
+    box.findById(req.params.id, function(err, foundbox){
+        if(err) {
+            console.log(err);
+        }else{
+            res.render('edit.ejs',{box: foundbox})
+        }
+    });
+});
+
+
+
+app.put('/box/:id', function(req, res){
+    box.findByIdAndUpdate(req.params.id, req.body.box, function(err, updatedbox){
+        if(err){
+            console.log(err);
+            res.redirect('/prints/');
+        }else{
+            res.redirect('/prints/');
+        }
+    });
+});
+
+app.delete('/box/:id', function(req, res){
+    box.findByIdAndRemove(req.params.id, function(err){
+        if(err) {
+            console.log(err);
+            res.redirect('/prints/');
+        }else{
+            res.redirect('/prints/');
+        }
     });
 });
 

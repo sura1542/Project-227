@@ -1,0 +1,27 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+    <h1> Edit Your New Movie</h1>
+<form action="/box/<%= box._id %>?_method=PUT" method="POST">
+<div class="mb-3">
+    <label class="form-label">Name Movie</label>
+    <input type="text" class="form-control" name="box[name]" placeholder="<%= box.name %>", value = <%= box.name %>
+<div class="mb-3">
+    <label class="form-label"> Image Photo</label> 
+    <input type="text" class="form-control"name= "box[url]" placeholder="<%= box.url %>", value = <%= box.url %>
+</div>
+<div class="mb-3">
+    <label class="form-label">Video Movie Theater</label> 
+    <input type="text" class="form-control"name= "box[video]" placeholder="<%= box.video %>", value = <%= box.video %>
+</div>
+<div class="mb-3">
+    <label class="form-label">Description of Movie</label>
+    <input type="text" class="form-control" name="box[description]" placeholder="<%= box.description %>", value = <%= box.description %>
+<div class="mb-3">
+
+<button type="submit" class="btn btn-primary">Edit new movie</button>
+<a href="/prints">back</a>
+
+</form>
+</div>
+<%- include("partials/footer.ejs")%>

@@ -1,7 +1,6 @@
-<%- include("partials/header.ejs") %>
+<%- include("./partials/header.ejs") %>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <div class="container">
-    <form action="/box/:id/:cinema_id/seat" method="POST" >
         <div class="row">
         <h1><%= box.name %></h1>
         <hr class="my-4">
@@ -15,21 +14,27 @@
             <%= box.description %>
         </p>
         <hr class="my-4">
+        
             <h3>Comments</h3>
             <% box.comments.forEach(function(comment){ %>
                 <p>
                     <strong><%= comment.author.username %></strong> - <%= comment.text %>
                 </p>
-            <% }) %> 
-            <a href="/box/<%= box._id %>/new" class="btn btn-sm btn-outline-secondary">Add New Comment</a>
+            <% }) %>
+        <% if(currentUser && currentUser.isAdmin){ %>     
+            <a href="/box/<%= box._id %>/edit" class="btn btn-sm btn-outline-secondary">Edit</a>
+            <form id='delete-form' action="/box/<%= box._id %>?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+            </form> 
+        <% } %> 
+        <a href="/box/<%= box._id %>/new" class="btn btn-sm btn-outline-secondary">Add New Comment</a>
         </div>
-    </div>
-    <hr class="my-4">
-    <div class="w3-bar">
-    <button type="submit" class="btn btn-primary">go to Choose Your seat &raquo;</button>
-    <a href="/cinema" type='submit' class="w3-button w3-left w3-light-grey"> Choose New Cinema &raquo;</a> 
-  </div>
-</form>
+        </div>
+        <hr class="my-4">
+        <div class="w3-bar">
+        <a href="/seat" type='submit' class="w3-button w3-left w3-light-grey"> Choose seat &raquo;</a> 
+        </div>
+
 </div>
 
-<%- include("partials/footer.ejs")%>
+<%- include("./partials/footer.ejs")%>

@@ -8,7 +8,19 @@ const   mongoose    =   require('mongoose'),
 //         url: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-630d9d1e6c7be72d25bec9a52accc428_screen.jpg?ts=1636999242'
 //     }
 // ];
-
+    // const data = [
+    // {
+        
+    //      cinemaname: "Paragon"
+    // },
+    // { 
+    //      cinemaname: "Icon"
+    // },
+    // {
+    //     cinemaname: "Mega"
+    // }
+    
+// ];
 function seeddb() {
     Box.remove({}, function(err) {
         if (err) {
