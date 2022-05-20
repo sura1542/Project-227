@@ -9,6 +9,7 @@ const   express         = require('express'),
         Comment         = require('./models/comment'),
         flash           = require('connect-flash'),
         middleware      = require('./middleware'),
+        seat            = require('./models/seat'),
         cinema          = require('./models/cinema'),
         methodOverride  = require('method-Override'),
         seeddb          = require('./seed.js');
@@ -54,21 +55,6 @@ const loginSchema = new mongoose.Schema({
 
 const login = mongoose.model('login',loginSchema);
 
-// login.create(
-//     {
-//     name: 'surawee',
-//     Email: '1399200001403@gmail.com',
-//     Password: '123456'
-//     },
-//     function(err, login) {
-//         if (err) {
-//             console.log(err);
-//         }else {
-//             console.log('New database created successfully');
-//             console.log(login);
-//         }
-//     }
-// );
 
 app.get('/show', function(req, res){
     res.render('show.ejs');
@@ -121,22 +107,6 @@ app.get("/movie", function(req, res) {
 });
 
 
-// box.create(
-//     {
-//         name: "Harry 2",
-//         url: "https://static.wixstatic.com/media/e4c482_833a535477074289a261c36909377e70~mv2.jpg/v1/fill/w_600,h_900,al_c,q_85/harry-potter-and-the-chamber-of-secrets-.jpg",
-//         description: "description",
-//         video: src="https://www.youtube.com/embed/1bq0qff4iF8"
-//     },
-//     function(err, box) {
-//         if (err) {
-//             console.log(err);
-//         }else {
-//             console.log("new data add");
-//             console.log(box);
-//         }
-//     }
-// );
 
 app.post("/prints", function(req, res) {
     let name = req.body.box.name;
@@ -163,31 +133,6 @@ app.get("/index", function(req, res) {
     res.render('index.ejs', { link: "profile.ejs" });
 })
 
-// const cinemaSchema = new mongoose.Schema({
-//     cinemaname: String
-// });
-
-// const cinema = mongoose.model('cinema', cinemaSchema);
-
-// cinema.create(
-//     {
-//         cinemaname: "Paragon"
-//     },
-//     { 
-//         cinemaname: "Icon"
-//     },
-//     {
-//         cinemaname: "Mega"
-//     },
-//     function(err, cinema){ 
-//         if(err){
-//             console.log(err);
-//         }else{
-//             console.log("Add new cinema")
-//             console.log(cinema);
-//         }
-//     }
-// );
 
 app.post("/cinema", function(req, res){
     let cinemaname = req.body.cinemaname;
@@ -206,9 +151,9 @@ app.get("/cinema", function(req, res) {
 });
 
 
-app.get("/profile", function(req, res) {
-    res.render("profile.ejs");
-});
+// app.get("/profile", function(req, res) {
+//     res.render("profile.ejs");
+// });
 
 app.post("/profile", function(req, res) {
     let username = req.params.username;
@@ -224,7 +169,18 @@ app.post("/profile", function(req, res) {
             res.redirect("/profile");
         }
     });
-})
+});
+
+app.get("/user/:id", function(req, res) {
+    User.findById(req.params.id).populate("ticket").exec( function(err, user) {
+        if (err) {
+            req.flash('error', 'There is something wrong ');
+            return res.redirect('/');
+        }else{
+            res.render('profile.ejs', {user: user});
+        }
+    });
+});
 
 app.get("/register", function(req, res) {
     res.render("register.ejs");
@@ -235,8 +191,8 @@ app.post("/register", function(req, res) {
         username: req.body.username,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        email: req.body.email,
-        profileImage: req.body.profileImage});
+        email: req.body.email});
+        // profileImage: req.body.profileImage});
     if (req.body.adminCode === 'topsecret' ){
         newUser.isAdmin = true;
     }
@@ -283,19 +239,92 @@ app.post("/index", passport.authenticate("local",
     }), function(req, res){
 });
 
-app.get("/seat", function(req, res) {
-    res.render("seat.ejs");
-});
 
-app.post("/box/:id/seat", function(req, res) {
-    box.findById(req.params.id, function(err, foundbox){
+app.post("/seat", function(req, res){
+    let rowNumber = req.body.rowNumber;
+    let newseat = { rowNumber: rowNumber};
+    seat.create(newseat, function(err, foundseat) {
         if (err) {
             console.log(err);
+        }else {
+            res.redirect("/seat");
+        }
+    });
+
+});
+
+app.get("/seat", middleware.isloggedIn,function(req, res){
+    seat.find({}, function(err, foundseat){
+        if(err) {
+            console.error(err);
         }else{
-            res.render("seat.ejs",{box:foundbox});
+            res.render('seat.ejs', {seat: foundseat});
+            console.log(foundseat);
         }
     })
 })
+
+
+app.get("/box/:id/cinema/:cinema_id/seat", function(req, res) {
+    box.findById(req.params.id).populate('comments').exec(function(err,foundbox){
+        if (err) {
+            console.log(err);
+        }else{
+            cinema.findById(req.params.cinema_id, function(err, foundcinema){
+                if (err) {
+                    console.log(err);
+                }else{
+                    seat.find({}, function(err, foundseat){
+                        if (err) {
+                            console.log(err);
+                        }else{
+                            res.render('seat.ejs', {box:foundbox, cinema:foundcinema, seat: foundseat}); 
+                        }
+                    });
+                   
+                }
+            });
+        }
+    });
+});
+
+app.post("/box/:id/cinema/:cinema_id/seat", function(req, res) {
+    let Seat = req.body.seat_id;
+    
+    box.findById(req.params.id).populate('comments').exec(function(err,foundbox){
+        if (err) {
+            console.log(err);
+        }else{
+            cinema.findById(req.params.cinema_id, function(err, foundcinema){
+                if (err) {
+                    console.log(err);
+                }else{
+                    seat.findById(Seat, function(err, foundseat){
+                        if (err) {
+                            console.log(err);
+                        }else{
+                            User.findById(req.user._id, function(err, founduser){
+                                if (err) {
+                                    console.log(err);
+                                }else{
+                                    let data = [
+                                        {box: foundbox},
+                                        {cinema: foundcinema},
+                                        {seat: foundseat}
+                                    ];
+                                    founduser.ticket = data;
+                                    founduser.save();
+                                    res.redirect('/user/'+ founduser._id);
+                                }
+                            });
+                        }
+                    });
+                   
+                }
+            });
+        }
+    });
+});
 
 app.get("/ctime", function(req, res) {
     res.render("ctime.ejs");
@@ -444,8 +473,8 @@ app.get("/cinema/all", function(req, res){
         }else{
             res.render('showcinema.ejs', {cinema: foundcinema});
         }
-    })
-})
+    });
+});
 
 // app.get("/prints/add", function(req, res){
 //     res.render("add.ejs");

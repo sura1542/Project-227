@@ -8,8 +8,29 @@ const userSchema = new mongoose.Schema({
     lastname: String,
     email: String,
     profileImage: String,
-    isAdmin: {type: Boolean, default: false}
+    isAdmin: {type: Boolean, default: false},
+    ticket: [
+        {
+    box:    {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Box'
+            },
+    cinema:   {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'cinema'
+            },
+    seat:   {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'seat'
+            }
+
+        }
+    ]
 });
+
+
+
+
 
 userSchema.plugin(passwordLocalMongoose);
 
