@@ -1,3 +1,9 @@
+    *
+{
+text-align: center !important;
+margin: auto !important;
+}
+
 .index-image{
   object-fit: cover;
 }

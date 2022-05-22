@@ -81,7 +81,7 @@ app.get("/prints", function(req, res) {
                 }else {
                     res.render("index.ejs",{prints:allbox, cinema:allcinema});
                 }
-            })
+            });
             
         }
     });
@@ -113,7 +113,8 @@ app.post("/prints", function(req, res) {
     let url = req.body.box.url;
     let description = req.body.box.description;
     let video = req.body.box.video;
-    let newbox = {name:name, url:url, description:description,video:video};
+    let timeonair = req.body.box.timeonair;
+    let newbox = {name:name, url:url, description:description,video:video, timeonair:timeonair};
     box.create(newbox, function(err, allbox){
 
         if (err) {
@@ -367,7 +368,8 @@ app.get("/box/:id/cinema/:cinema_id", function(req, res){
                 if (err) {
                     console.log(err);
                 }else{
-                   res.render('show.ejs', {box:foundbox, cinema:foundcinema}); 
+                    let date = new Date()
+                   res.render('show.ejs', {box:foundbox, cinema:foundcinema, date:date}); 
                 }
             })
         }
@@ -475,6 +477,39 @@ app.get("/cinema/all", function(req, res){
         }
     });
 });
+
+
+app.get('/movie/sortBydate', function(req, res){
+    box.find({}, function(err, movieLists){
+        if(err){
+            req.flash('error', err.message);;
+            res.redirect('/');
+        }else{
+            movieLists.sort((a, b) => (a.date > b.date) ? 1 : -1);
+            res.render('sort.ejs', {prints: movieLists});
+        }
+    });
+});
+
+app.post('/word', function(req, res){
+    console.log("dsadas")
+    let word = req.body.word;
+    box.find({name :{$regex : word, $options :"i"}}).exec(function(err, allbox){
+        if(err){
+            console.log(err);
+        }
+        else{
+            cinema.find({},function(err, allcinema) {
+                if (err) {
+                    console.log(err);
+                }else {
+                    res.render("index.ejs",{prints: allbox, cinema:allcinema});
+                }
+            });
+        }
+    });
+});
+
 
 // app.get("/prints/add", function(req, res){
 //     res.render("add.ejs");

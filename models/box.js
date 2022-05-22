@@ -5,6 +5,8 @@ const boxSchema = new mongoose.Schema({
     url: String,
     description: String,
     video: String,
+    date: String,
+    timeonair: Date,
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -10,12 +10,6 @@
     text-align: center;
   }
 </style>
-<div class="btn-group py-3">
-  <button class="btn create btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="left: 920%;">Sort by Date</button>
-  <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/movie/sortBydate">Date</a></li>
-  </ul>
-</div> 
 <h1 style="text-align:center">T O P <br>I N<br>W E E K</h1>
   <!-- Carousel -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
@@ -63,16 +57,7 @@
   </button>
 </div>
 
-<div class="container">
-  <form action="/movie/" style="text-align:center">
-      <p>Please select your favorite Web language:</p>
-      <% cinema.forEach(function(cinema){ %>
-        <input type="radio"  name="cinemaname" value="<%= cinema.cinemaname %>">
-      <label for="<%= cinema.cinemaname %>"><%= cinema.cinemaname %></label><br>
-      <% }); %>
-      <input type="submit" value="Submit">
-  </form>
-  </div>
+
 
 <hr class="my-4">
 <section class="py-5 text-center container">

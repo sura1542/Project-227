@@ -29,6 +29,7 @@
           <li class="nav-item">
             <a href="/cinema/all" class="nav-link px-2 link-dark">Cinema</a>
           </li>
+          
             <% if (!currentUser) { %>
           <li class="nav-item">
             <a class="nav-link " href="/login">log in</a>
@@ -45,12 +46,17 @@
             </li>
             <%} %>
         </ul>
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
+        <div class="searchbar container w-50 mt-5">
+          <form class="d-flex" action="/word" method="POST">
+            <input class="form-control me-2" type="search" name="word" placeholder="Search Movie"
+              aria-label="Search" />
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+          </form>
+        </div>            
       </div>
     </div>
   </header>
+
   <% if(error && error.length > 0){ %>
     <div class="alert alert-danger" role="alert">
       <%= error %>
