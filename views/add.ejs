@@ -1,6 +1,7 @@
 <%- include("partials/header.ejs") %>
 
 <div class="container">
+    <br>
     <h1> Add Your New Movie</h1>
 <form action="/prints" method="POST">
 <div class="mb-3">
@@ -23,10 +24,10 @@
 <div class="mb-3">
     <label class="form-label">Description of Movie</label>
     <input type="text" class="form-control" name="box[description]" placeholder="description of Movie">
+</div><br>
 <div class="mb-3">
-
 <button type="submit" class="btn btn-primary">Add new movie</button>
-<a href="/prints">back</a>
+<button href="/prints">back</button>
 
 </form>
 </div>

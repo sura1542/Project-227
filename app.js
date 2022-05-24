@@ -12,6 +12,7 @@ const   express         = require('express'),
         seat            = require('./models/seat'),
         cinema          = require('./models/cinema'),
         methodOverride  = require('method-Override'),
+        ticket          = require('./models/ticket'),
         seeddb          = require('./seed.js');
 
 
@@ -178,7 +179,14 @@ app.get("/user/:id", function(req, res) {
             req.flash('error', 'There is something wrong ');
             return res.redirect('/');
         }else{
-            res.render('profile.ejs', {user: user});
+            ticket.find({_id: {$in:user.ticket}}).populate("box cinema seat").exec( function(err, foundticket) {
+                if (err) {
+                    console.log(err);
+                }else {
+                    res.render('profile.ejs', {user: user, ticket: foundticket});
+                }
+            })
+            
         }
     });
 });
@@ -308,14 +316,20 @@ app.post("/box/:id/cinema/:cinema_id/seat", function(req, res) {
                                 if (err) {
                                     console.log(err);
                                 }else{
-                                    let data = [
-                                        {box: foundbox},
-                                        {cinema: foundcinema},
-                                        {seat: foundseat}
-                                    ];
-                                    founduser.ticket = data;
-                                    founduser.save();
-                                    res.redirect('/user/'+ founduser._id);
+                                    let data = {
+                                        box: foundbox,
+                                        cinema: foundcinema,
+                                        seat: foundseat
+                                    }
+                                    ticket.create(data, function(err, ticket){
+                                        if (err) {
+                                            console.log(err);
+                                        }else{
+                                            founduser.ticket.push(ticket);
+                                            founduser.save();
+                                            res.redirect('/user/'+ founduser._id);
+                                        }
+                                    });
                                 }
                             });
                         }

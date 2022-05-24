@@ -1,17 +1,18 @@
 <%- include("partials/header.ejs") %>
 
 <div class="container">
+  <br>
   <h1>Log In</h1>
   <form action="/login" method="POST">
     <div class="md-3">
-      <label class="form-label">Log In</label>
+      <label class="form-label">E-mail</label>
       <input type="text" class="form-control" name="username" placeholder="Username">
     </div>
 
     <div class="md-3">
       <label class="form-label">password</label>
       <input type="password" class="form-control" name="password" placeholder="Your password">
-    </div>
+    </div><br>
     <button type="submit" class="btn btn-primary">Log In</button>
     <a href="/">back</a>
   </form>

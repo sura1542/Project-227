@@ -4,11 +4,14 @@
 </style>
 <div class="container">
   <form action="/movie/" style="text-align:center">
-      <p>Please select your favorite Web language:</p>
+    <br><br>
+      <h2>Please select your cinema</h2>
+      <br>
       <% cinema.forEach(function(cinema){ %>
         <input type="radio"  name="cinemaname" value="<%= cinema.cinemaname %>">
       <label for="<%= cinema.cinemaname %>"><%= cinema.cinemaname %></label><br>
       <% }); %>
+      <br>
       <input type="submit" value="Submit">
   </form>
   </div>

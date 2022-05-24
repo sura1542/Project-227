@@ -11,18 +11,8 @@ const userSchema = new mongoose.Schema({
     isAdmin: {type: Boolean, default: false},
     ticket: [
         {
-    box:    {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Box'
-            },
-    cinema:   {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'cinema'
-            },
-    seat:   {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'seat'
-            }
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Ticket'
 
         }
     ]

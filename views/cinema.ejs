@@ -1,17 +1,16 @@
 <%- include("partials/header.ejs") %>
-<style>
-
-</style>
 <div class="container">
   <form action="/movie/" style="text-align:center">
-      <p>Please select your favorite Web language:</p>
+      <h1>Please select your Cinema:</h1>
+      <fieldset class="form-group row">
       <% cinema.forEach(function(cinema){ %>
         <input type="radio"  name="cinemaname" value="<%= cinema.cinemaname %>">
       <label for="<%= cinema.cinemaname %>"><%= cinema.cinemaname %></label><br>
       <% }); %>
+    </fieldset>
       <input type="submit" value="Submit">
   </form>
-  </div>
+</div>
 <%- include("partials/footer.ejs")%>
 
 <!-- "IMAX": {

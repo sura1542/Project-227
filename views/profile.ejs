@@ -1,17 +1,29 @@
 <%- include("partials/header.ejs") %>
+<style>
+*
+{
+text-align: center !important;
+margin: auto !important;
+}
+</style>
 <div class="container">
+<br>
 <h1>User Profile</h1>
+<br>
 <p><%= user.username %></p>
+<br>
 <p><%= user.firstname   + '' +  user.lastname %></p>
+<br>
 <p>
     <a href="mailto: <%= user.email %>"><%= user.email %></a>
 </p>
-
+<br>
 <h2>Your History Movie</h2>
-<% user.ticket.forEach(function(PP){ %>
-    <p><%= PP.box %></p>
-    <p><%= PP.cinema %></p>
-    <p><%= PP.seat %></p>
+<br>
+<% ticket.forEach(function(PP){ %>
+    <span><%= PP.box.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span><%= PP.cinema.cinemaname %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <span><%= PP.seat.rowNumber %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 <% }); %>
 </div>
 <%- include("partials/footer.ejs")%>
