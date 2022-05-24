@@ -5,41 +5,70 @@ fieldset {
       overflow: hidden
     }
     
-    .some-class {
-      float: left;
+  .some-class {
+      float: center;
       clear: none;
     }
     
-    label {
+label {
       float: left;
       clear: none;
       display: block;
       padding: 0px 1em 0px 8px;
     }
     
-    input[type=checkbox],
-    input.checkbox {
+input[type=checkbox],
+input.checkbox {
       float: left;
       clear: none;
       margin: 2px 0 0 2px;
     }
+.screenBox{
+    width: 50%;
+    height: 2rem;
+    background: #605d5d;
+}
+.screenBox{
+    width: 50%;
+    height: 2rem;
+    background: #605d5d;
+    border-radius: 9px;
+}
+.seat-center{
+  position: relative;
+  left: 450px;
+
+}
+*
+{
+text-align: center !important;
+margin: auto !important;
+
+}
 </style>
 
 <div class="container">
   <form action="/box/<%= box._id %>/cinema/<%= cinema._id %>/seat" method = "POST" >
-      <p>Please select your seat:</p>
-      
+    <br><br>
+    <h2>Please select your seat:</h2><br><br>
         <fieldset>
-          <div class="some-class">
-            <% seat.forEach(function(seat){ %>
-            <input  type="checkbox" class="minimal" name="seat" value="<%= seat.rowNumber %>"  />
-            <label for="<%= seat.rowNumber %>"><%= seat.rowNumber %></label>
-            <input type="hidden" name='seat_id' value='<%= seat._id %>'>
-            <% }); %>
+          <div class="some-class" >
+            <div class="screenBox">
+              <h3 class="text-light" style="text-align: center;">Screen</h3><br><br>
+              
+            </div><br><br>
           </div>
         </fieldset>
-        
+        <div class="seat-center">
+                <% seat.forEach(function(seat){ %>
+                <input  type="checkbox" class="minimal" name="seat" value="<%= seat.rowNumber %>"  />
+                <label for="&nbsp;&nbsp;<%= seat.rowNumber %>">A: <%= seat.rowNumber %></label>
+                <input type="hidden" name='seat_id' value='<%= seat._id %>'>
+                <% }); %>
+        </div>
+        <br><br><br>
       <input type="submit" value="Submit">
   </form>
 </div>
+<br><br><br><br><br>
 <%- include("partials/footer.ejs")%>
