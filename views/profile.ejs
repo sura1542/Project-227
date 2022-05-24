@@ -20,11 +20,29 @@ margin: auto !important;
 <br>
 <h2>Your History Movie</h2>
 <br>
-<% ticket.forEach(function(PP){ %>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Movie</th>
+        <th scope="col">Cinema</th>
+        <th scope="col">Seat</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% ticket.forEach(function(PP){ %>
+      <tr>
+        <td><%= PP.box.name %></td>
+        <td><%= PP.cinema.cinemaname %></td>
+        <td><%= PP.seat.rowNumber %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<!-- <% ticket.forEach(function(PP){ %>
     <span><%= PP.box.name %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <span><%= PP.cinema.cinemaname %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <span><%= PP.seat.rowNumber %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<% }); %>
+<% }); %> -->
 </div>
 <br>
 <br>
