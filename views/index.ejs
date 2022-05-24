@@ -1,5 +1,11 @@
 <%- include("partials/header.ejs") %>
 <style>
+  h1{
+    color:red;
+  }
+  h3{
+    color:black;
+  }
   div {
     margin: 0 auto;
   }
@@ -9,6 +15,13 @@
   #active-image{
     text-align: center;
   }
+  .cinema{
+  background-color: rgba(255,193,7,255);
+  color: white;
+  border: 2px solid rgb(255, 0, 0);
+  margin: 20px;
+  padding: 20px;
+  }
 </style>
 <div class="btn-group py-3">
   <button class="btn create btn-outline-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="left: 920%;">Sort by Date</button>
@@ -16,7 +29,7 @@
       <li><a class="dropdown-item" href="/movie/sortBydate">Date</a></li>
   </ul>
 </div> 
-<h1 style="text-align:center">T O P <br>I N<br>W E E K</h1>
+<h1 style="text-align:center">TOP  IN   WEEK</h1><br>
   <!-- Carousel -->
 <div id="demo" class="carousel slide" data-bs-ride="carousel">
 
@@ -31,25 +44,13 @@
   <div class="container" >
   <div id='active-image' class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://s.onlineoops.com/upload3/2/20190621/0bcd6398af08473d060d36352ce2035f.jpg" alt="Los Angeles" style="width: 1000px;">
-      <div class="carousel-caption">
-        <h3>Los Angeles</h3>
-        <p>We had such a great time in LA!</p>
-      </div>
+      <img src="https://cf.shopee.co.th/file/6b5768f16e1982a4e30527c78d4987e7" style="width: 50%;">
     </div>
     <div class="carousel-item">
-      <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-poster-template-design-630d9d1e6c7be72d25bec9a52accc428_screen.jpg?ts=1636999242" alt="Chicago" style="width: 1000px;">
-      <div class="carousel-caption">
-        <h3>Chicago</h3>
-        <p>Thank you, Chicago!</p>
-      </div> 
+      <img src="https://cms.dmpcdn.com/moviearticle/2022/03/15/c4f63250-a42f-11ec-9c74-054b0960f9aa_webp_original.jpg"  style="width: 50%;">
     </div>
     <div class="carousel-item">
-      <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/action-movie-poster-template-design-0f5fff6262fdefb855e3a9a3f0fdd361_screen.jpg?ts=1636996054" alt="New York"  style="width: 1000px;">
-      <div class="carousel-caption">
-        <h3>New York</h3>
-        <p>We love the Big Apple!</p>
-      </div>  
+      <img src="https://i.pinimg.com/originals/1c/b5/81/1cb5818af879dc9927e96c56a419da40.jpg"  style="width: 50%;">
     </div>
   </div>
 </div>
@@ -63,12 +64,13 @@
   </button>
 </div>
 
-<div class="container">
+<div class="cinema" class="container">
   <form action="/movie/" style="text-align:center">
-      <p>Please select your favorite Web language:</p>
+      <h2>Please select your cinema</h2>
       <% cinema.forEach(function(cinema){ %>
         <input type="radio"  name="cinemaname" value="<%= cinema.cinemaname %>">
-      <label for="<%= cinema.cinemaname %>"><%= cinema.cinemaname %></label><br>
+        <label for="<%= cinema.cinemaname %>"><%= cinema.cinemaname %></label>
+        <br>
       <% }); %>
       <input type="submit" value="Submit">
   </form>
@@ -96,7 +98,6 @@
             <p class="card-text">Name: <%= box.name %></p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <!-- <a href="/box/<%= box._id %>" class="btn btn-sm btn-outline-secondary">View</a> -->
               </div>
               <small class="text-muted"></small>
             </div>
