@@ -32,6 +32,7 @@ margin: auto !important;
                 <strong><%= comment.author.username %></strong> - <%= comment.text %>
             </p>
         <% }) %>
+    </p>
     <% if(currentUser && currentUser.isAdmin){ %>     
         <a href="/box/<%= box._id %>/edit" class="btn btn-sm btn-outline-secondary">Edit</a>
         <form id='delete-form' action="/box/<%= box._id %>?_method=DELETE" method="POST">
@@ -41,8 +42,8 @@ margin: auto !important;
     <a href="/box/<%= box._id %>/new" class="btn btn-sm btn-outline-secondary">Add New Comment</a>
     </div>
     </div>
-</p><br><br>
-    <% if(date> box.timeonair){ %>
+    </p><br><br>
+    <% if(date > box.timeonair){ %>
       <a  type='submit' class="w3-button w3-left w3-light-grey"> Choose seat &raquo;</a>
     <% }else{ %>
         <a href="/box/<%= box._id %>/cinema/<%= cinema._id %>/seat" type='submit' class="w3-button w3-left w3-light-grey"> Choose seat &raquo;</a>

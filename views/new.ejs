@@ -4,16 +4,12 @@
     <br>
     <h1>Add Your Comment </h1>
     <form action="/box/<%= box._id %>/comments" method="POST">
-        <!-- <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" name="comment[author]" placeholder="Your Name">
-        </div> -->
         <div class="mb-3">
             <label class="form-label">Comment</label>
             <input type="text" class="form-control" name="comment[text]" placeholder="Your Comment">
         </div>
         <button type="submit" class="btn btn-primary"> Submit</button>
-        <a href="/prints/<%= box._id %>">Go Back</a>
+        <a href="/show">Go Back</a>
     </form>
 </div>
 <br>
