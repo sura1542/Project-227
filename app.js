@@ -365,7 +365,8 @@ app.get("/box/:id", function(req, res){
                 if (err) {
                     console.log(err);
                 }else{
-                   res.render('show.ejs', {box:foundbox, cinema:foundcinema}); 
+                    let date = new Date();
+                   res.render('show.ejs', {box:foundbox, cinema:foundcinema, date:date}); 
                 }
             })
             
@@ -382,8 +383,9 @@ app.get("/box/:id/cinema/:cinema_id", function(req, res){
                 if (err) {
                     console.log(err);
                 }else{
-                    let date = new Date()
-                   res.render('show.ejs', {box:foundbox, cinema:foundcinema, date:date}); 
+                let date = new Date()
+                console.log(date);
+                res.render('show.ejs', {box:foundbox, cinema:foundcinema, date:date}); 
                 }
             })
         }
@@ -392,10 +394,13 @@ app.get("/box/:id/cinema/:cinema_id", function(req, res){
 
 
 app.get("/box/:id/new", middleware.isloggedIn ,function(req, res) {
+    let newDate = new Date(req.params.id);
+    console.log(newDate);
     box.findById(req.params.id, function(err, foundbox) {
         if (err) {
             console.log(err);
         }else {
+            console.log(foundbox);
             res.render("new.ejs", {box: foundbox});
         }
     });
